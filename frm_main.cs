@@ -17,14 +17,15 @@ namespace Modbus_Data_Provider
 {
     public partial class frm_main : Form
     {
-        SERIAL device = new SERIAL("COM6", 9600);
+        SERIAL device; 
         MSG msg;
-        Palette_Motor lm = new Palette_Motor(11, 51);
+        Palette_Motor lm = new Palette_Motor(1, 255);
 
         public frm_main()
         {
             InitializeComponent();
             msg=new MSG(lst_msg);
+            device = new SERIAL(txt_comm_port.Text, 9600);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,7 +60,7 @@ namespace Modbus_Data_Provider
 
         private void btn_connect_Click(object sender, EventArgs e)
         {
-            device.open();
+            device.open(txt_comm_port.Text,9600);
 
             if (device.IsOpen)
             {
@@ -76,15 +77,16 @@ namespace Modbus_Data_Provider
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (gbl.bfr_sciB_tx != null)
+            if(device.received)
             {
-                if ((gbl.bfr_sciB_tx[0]== 81) || (gbl.bfr_sciB_tx[0] == 59))
-                {
-                    gbl.bfr_sciB_rx = lm.process(gbl.bfr_sciB_tx, dg_register);
-                }
-                gbl.sciB_received = true;
-                gbl.bfr_sciB_tx = null;
+                device.received = false;
+                byte[] buffer = new byte[device.bfr_rx_ptr];
+                Array.Copy(device.bfr_rx,0, buffer, 0,  device.bfr_rx_ptr);
+                byte[] b= lm.process(buffer, dg_register);
+                if(b !=null)device.send(b);
             }
+
+ 
         }
     }
 }

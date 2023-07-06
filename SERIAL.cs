@@ -51,6 +51,8 @@ namespace Tools
 
         public bool open(string commPort, int BaudRate)
         {
+            if(IsOpen) { return true; }
+
             try
             {
                 sp = new SerialPort(commPort, BaudRate, Parity.None, 8, StopBits.One);
