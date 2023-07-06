@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dg_register = new System.Windows.Forms.DataGridView();
@@ -71,21 +72,21 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(12, 47);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(862, 454);
+            this.groupBox1.Size = new System.Drawing.Size(898, 454);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODBUS REGISTER";
             // 
             // dg_register
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dg_register.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dg_register.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dg_register.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dg_register.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -104,9 +105,17 @@
             this.Column14,
             this.Column15,
             this.Column16});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dg_register.DefaultCellStyle = dataGridViewCellStyle4;
             this.dg_register.Location = new System.Drawing.Point(6, 19);
             this.dg_register.Name = "dg_register";
-            this.dg_register.Size = new System.Drawing.Size(848, 420);
+            this.dg_register.Size = new System.Drawing.Size(882, 420);
             this.dg_register.TabIndex = 0;
             // 
             // Column1
@@ -267,6 +276,7 @@
             this.txt_baud_rate.Name = "txt_baud_rate";
             this.txt_baud_rate.Size = new System.Drawing.Size(90, 20);
             this.txt_baud_rate.TabIndex = 0;
+            this.txt_baud_rate.Text = "9600";
             // 
             // txt_comm_port
             // 
@@ -274,6 +284,7 @@
             this.txt_comm_port.Name = "txt_comm_port";
             this.txt_comm_port.Size = new System.Drawing.Size(90, 20);
             this.txt_comm_port.TabIndex = 0;
+            this.txt_comm_port.Text = "COM";
             // 
             // label2
             // 
@@ -289,9 +300,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lst_msg);
-            this.groupBox3.Location = new System.Drawing.Point(880, 47);
+            this.groupBox3.Location = new System.Drawing.Point(916, 47);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(395, 454);
+            this.groupBox3.Size = new System.Drawing.Size(359, 454);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "groupBox3";
@@ -301,7 +312,7 @@
             this.lst_msg.FormattingEnabled = true;
             this.lst_msg.Location = new System.Drawing.Point(6, 19);
             this.lst_msg.Name = "lst_msg";
-            this.lst_msg.Size = new System.Drawing.Size(383, 420);
+            this.lst_msg.Size = new System.Drawing.Size(347, 420);
             this.lst_msg.TabIndex = 0;
             // 
             // timer1

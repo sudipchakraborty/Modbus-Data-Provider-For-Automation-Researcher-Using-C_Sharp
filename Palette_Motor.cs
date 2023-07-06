@@ -86,7 +86,7 @@ namespace TB_Manager
             {
                 dg[c, r].Value=bfr[i];
                 c++;
-                if (c>9)
+                if (c>15)
                 {
                     c=0;
                     r++;
