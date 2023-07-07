@@ -23,7 +23,8 @@ namespace Tools
         public byte[] bfr_tx = new byte[1024];
         public UInt16[] Data = new UInt16[128];
         public int bfr_tx_ptr = 0;
-      
+        public UInt16[] Holding_Registor = new UInt16[300];
+
         public ModbusRtuClient(byte sl_id, byte multi_addr)
         {
             this.slave_addr=sl_id;
@@ -134,6 +135,7 @@ namespace Tools
         //_________________________________________________________________________________________________________________________
         public void Prepare_Response_Packet_Header()
         {
+            clear_tx_buffer();
             bfr_tx[0] = slave_addr;
             bfr_tx[1] = function_code;
             bfr_tx[2] =(byte)(reg16_count*2);
@@ -222,15 +224,74 @@ namespace Tools
             return temp;
         }
         //__________________________________________________________________________________________________________
-        public byte[] Get_Response_Packet()
+        public byte[] Get_Response_Packet(byte[] buffer , int recv_count)
         {
+            byte[] data = new byte[recv_count];
+            Array.Copy(buffer, 0,data , 0, recv_count);
+
+            if (!healthy(data)) return null;
+            purse_packet(data, data.Length);
+
+            if (function_code == 0x03)
+            {
+                if (slave_addr_rx != multicast_addr)
+                {
+                    Prepare_Response_Packet_Header();
+                    for (int k = starting_addr; k < starting_addr + reg16_count; k++)
+                    {
+                        push_data(Holding_Registor[k]);
+                    }
+                    close_packet();
+                }
+
+
+
+
+
+
+
+            }
+            //if (rtu.function_code == 0x06)
+            //{
+            //    Write_Data_To_Grid(dg, rtu.starting_addr, rtu.Data[0].ToString());
+            //}
+            //if (rtu.slave_addr_rx != rtu.multicast_addr)
+            //{
+            //    rtu.Prepare_Response_Packet_Header();
+            //    //   rtu.push_data(Holding_Registor[rtu.starting_addr]);
+            //    rtu.close_packet();
+            //    byte[] b = rtu.Get_Response_Packet();
+            //    rtu.clear_tx_buffer();
+            //    return b;
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+
+
+
+
             byte[] pkt = new byte[bfr_tx_ptr];
 
-            for(int i=0;i<bfr_tx_ptr;i++)
+            for (int i = 0; i < bfr_tx_ptr; i++)
             {
-                pkt[i]= (byte)bfr_tx[i];
+                pkt[i] = (byte)bfr_tx[i];
             }
-            return  pkt;
+            return pkt;
+
+
+             
+
+
+
+
+
+
+
+
+
+           
         }
         
         public void clear_tx_buffer()
