@@ -36,6 +36,7 @@ namespace Modbus_Data_Provider
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            dg_register.DefaultCellStyle.ForeColor = Color.Black;
             dg_register.Rows.Add(30);
             utilGrid.set_datagrid_row_header_width(dg_register, 3);
             utilGrid.Fill_Grid_Index(dg_register);
@@ -92,28 +93,6 @@ namespace Modbus_Data_Provider
             } 
         }
 
-
-
-
-
-
-
-
-        //public Palette_Motor(byte unicast_id, byte multicast_id)
-        //{
-        //    this.unicast_id = unicast_id;
-        //    this.multicast_id = multicast_id;
-
-
-        //    for (UInt16 i = 0; i < Holding_Registor.Length; i++)
-        //    {
-        //        Holding_Registor[i] = i;
-        //    }
-
-        //}
-
-        
-
         public void Write_Data_To_Grid(DataGridView dg, int address, string data)
         {
             if (dg == null) return;
@@ -148,20 +127,45 @@ namespace Modbus_Data_Provider
             }
         }
 
+        private void dg_register_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if(e.KeyCode == Keys.Enter)
+            //{
+            //    int r=dg_register.CurrentCell.RowIndex;
+            //    int c=dg_register.CurrentCell.ColumnIndex;
+            //    string val = dg_register[c, r].Value.ToString();
+            //}
+        }
 
+        private void dg_register_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            int r = dg_register.CurrentCell.RowIndex;
+            int c = dg_register.CurrentCell.ColumnIndex;
+            string val = dg_register[c, r].Value.ToString();
+            try
+            {
+                rtu.Holding_Registor[r * 10 + c] = Convert.ToUInt16(val);
+            }
+            catch (Exception ex)
+            {
 
+            }
+        }
 
+        private void txt_multicast_id_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                rtu.multicast_addr=Convert.ToByte(txt_multicast_id.Text);
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
+        private void txt_unicast_id_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                rtu.slave_addr=Convert.ToByte(txt_unicast_id.Text);
+            }
+        }
     }
 }

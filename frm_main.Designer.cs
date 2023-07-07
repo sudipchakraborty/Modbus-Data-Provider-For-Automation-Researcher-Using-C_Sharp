@@ -51,7 +51,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_modbus_device_id = new System.Windows.Forms.TextBox();
+            this.txt_unicast_id = new System.Windows.Forms.TextBox();
             this.txt_baud_rate = new System.Windows.Forms.TextBox();
             this.txt_comm_port = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -88,6 +88,8 @@
             this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column14 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.txt_multicast_id = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_register)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -145,6 +147,8 @@
             this.dg_register.Name = "dg_register";
             this.dg_register.Size = new System.Drawing.Size(583, 420);
             this.dg_register.TabIndex = 0;
+            this.dg_register.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dg_register_CellEndEdit);
+            this.dg_register.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dg_register_KeyDown);
             // 
             // Column1
             // 
@@ -210,10 +214,12 @@
             // 
             this.groupBox2.Controls.Add(this.btn_disconnect);
             this.groupBox2.Controls.Add(this.btn_connect);
+            this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.txt_modbus_device_id);
+            this.groupBox2.Controls.Add(this.txt_multicast_id);
+            this.groupBox2.Controls.Add(this.txt_unicast_id);
             this.groupBox2.Controls.Add(this.txt_baud_rate);
             this.groupBox2.Controls.Add(this.txt_comm_port);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
@@ -227,9 +233,9 @@
             // btn_disconnect
             // 
             this.btn_disconnect.ForeColor = System.Drawing.Color.Black;
-            this.btn_disconnect.Location = new System.Drawing.Point(313, 35);
+            this.btn_disconnect.Location = new System.Drawing.Point(300, 26);
             this.btn_disconnect.Name = "btn_disconnect";
-            this.btn_disconnect.Size = new System.Drawing.Size(90, 64);
+            this.btn_disconnect.Size = new System.Drawing.Size(101, 47);
             this.btn_disconnect.TabIndex = 2;
             this.btn_disconnect.Text = "Disconnect";
             this.btn_disconnect.UseVisualStyleBackColor = true;
@@ -238,9 +244,9 @@
             // btn_connect
             // 
             this.btn_connect.ForeColor = System.Drawing.Color.Black;
-            this.btn_connect.Location = new System.Drawing.Point(208, 35);
+            this.btn_connect.Location = new System.Drawing.Point(186, 26);
             this.btn_connect.Name = "btn_connect";
-            this.btn_connect.Size = new System.Drawing.Size(85, 64);
+            this.btn_connect.Size = new System.Drawing.Size(108, 45);
             this.btn_connect.TabIndex = 2;
             this.btn_connect.Text = "Connect";
             this.btn_connect.UseVisualStyleBackColor = true;
@@ -249,52 +255,58 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 24);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(14, 89);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 13);
+            this.label4.Size = new System.Drawing.Size(120, 16);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Modbus Device ID";
+            this.label4.Text = "Modbus Unicast ID";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 82);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(12, 59);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.Size = new System.Drawing.Size(85, 16);
             this.label3.TabIndex = 1;
             this.label3.Text = "BAUD RATE";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 56);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(19, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(78, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "COM PORT";
             // 
-            // txt_modbus_device_id
+            // txt_unicast_id
             // 
-            this.txt_modbus_device_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_modbus_device_id.Location = new System.Drawing.Point(154, 18);
-            this.txt_modbus_device_id.Name = "txt_modbus_device_id";
-            this.txt_modbus_device_id.Size = new System.Drawing.Size(35, 29);
-            this.txt_modbus_device_id.TabIndex = 0;
-            this.txt_modbus_device_id.Text = "1";
+            this.txt_unicast_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_unicast_id.Location = new System.Drawing.Point(143, 83);
+            this.txt_unicast_id.Name = "txt_unicast_id";
+            this.txt_unicast_id.Size = new System.Drawing.Size(37, 29);
+            this.txt_unicast_id.TabIndex = 0;
+            this.txt_unicast_id.Text = "1";
+            this.txt_unicast_id.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_unicast_id_KeyDown);
             // 
             // txt_baud_rate
             // 
-            this.txt_baud_rate.Location = new System.Drawing.Point(99, 79);
+            this.txt_baud_rate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_baud_rate.Location = new System.Drawing.Point(103, 55);
             this.txt_baud_rate.Name = "txt_baud_rate";
-            this.txt_baud_rate.Size = new System.Drawing.Size(90, 20);
+            this.txt_baud_rate.Size = new System.Drawing.Size(77, 22);
             this.txt_baud_rate.TabIndex = 0;
             this.txt_baud_rate.Text = "9600";
             // 
             // txt_comm_port
             // 
-            this.txt_comm_port.Location = new System.Drawing.Point(99, 53);
+            this.txt_comm_port.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_comm_port.Location = new System.Drawing.Point(103, 27);
             this.txt_comm_port.Name = "txt_comm_port";
-            this.txt_comm_port.Size = new System.Drawing.Size(90, 20);
+            this.txt_comm_port.Size = new System.Drawing.Size(77, 22);
             this.txt_comm_port.TabIndex = 0;
             this.txt_comm_port.Text = "COM28";
             // 
@@ -610,6 +622,26 @@
             "Random"});
             this.Column14.Name = "Column14";
             // 
+            // txt_multicast_id
+            // 
+            this.txt_multicast_id.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_multicast_id.Location = new System.Drawing.Point(362, 83);
+            this.txt_multicast_id.Name = "txt_multicast_id";
+            this.txt_multicast_id.Size = new System.Drawing.Size(39, 29);
+            this.txt_multicast_id.TabIndex = 0;
+            this.txt_multicast_id.Text = "1";
+            this.txt_multicast_id.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_multicast_id_KeyDown);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(224, 89);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(132, 16);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "Modbus Multi Cast ID";
+            // 
             // frm_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -668,7 +700,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_modbus_device_id;
+        private System.Windows.Forms.TextBox txt_unicast_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -708,6 +740,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txt_multicast_id;
     }
 }
 
